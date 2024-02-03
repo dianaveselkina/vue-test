@@ -1,10 +1,22 @@
 <template>
-  <div>
+  <div class="app">
     <h4>Создание поста</h4>
-    <form>
-      <input class="input" type="text" placeholder="Название" />
-      <input class="input" type="text" placeholder="Описание" />
-      <button>Создать</button>
+    <form @submit.prevent>
+      <input
+        v-bind:value="title"
+        @input="title = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Название"
+      />
+      <input
+        v-bind:value="body"
+        @input="body = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="Описание"
+      />
+      <button class="btn" @click="createPost">Создать</button>
     </form>
     <div class="post" v-for="post in posts">
       <div><strong>Название:</strong>{{ post.title }}</div>
@@ -21,9 +33,20 @@ export default {
         { id: 2, title: 'JS2', body: '1234' },
         { id: 3, title: 'JS3', body: '1235' },
       ],
+      title: '',
+      body: '',
     };
   },
-  methods: {},
+  methods: {
+    createPost() {
+      const newPost = {
+        id: Date.now(),
+        title: this.title,
+        body: this.body,
+      };
+      this.posts.push(newPost);
+    },
+  },
 };
 </script>
 <style>
@@ -31,6 +54,13 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+.app {
+  padding: 20px;
+}
+form {
+  display: flex;
+  flex-direction: column;
 }
 .post {
   padding: 15px;
@@ -42,5 +72,13 @@ export default {
   border: 1px solid teal;
   padding: 10px 15px;
   margin-top: 15px;
+}
+.btn {
+  margin-top: 15px;
+  align-self: flex-end;
+  padding: 10px 15px;
+  background: none;
+  color: teal;
+  border: 1px solid teal;
 }
 </style>
