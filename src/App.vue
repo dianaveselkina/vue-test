@@ -1,22 +1,14 @@
 <template>
   <div>
-    <div class="post">
-      <div><strong>Название:</strong>Пост о JavaScript</div>
-      <div>
-        <strong>Описание:</strong>JavaScript универсальный язык программирования
-      </div>
-    </div>
-    <div class="post">
-      <div><strong>Название:</strong>Пост о JavaScript</div>
-      <div>
-        <strong>Описание:</strong>JavaScript универсальный язык программирования
-      </div>
-    </div>
-    <div class="post">
-      <div><strong>Название:</strong>Пост о JavaScript</div>
-      <div>
-        <strong>Описание:</strong>JavaScript универсальный язык программирования
-      </div>
+    <h4>Создание поста</h4>
+    <form>
+      <input class="input" type="text" placeholder="Название" />
+      <input class="input" type="text" placeholder="Описание" />
+      <button>Создать</button>
+    </form>
+    <div class="post" v-for="post in posts">
+      <div><strong>Название:</strong>{{ post.title }}</div>
+      <div><strong>Описание:</strong>{{ post.body }}</div>
     </div>
   </div>
 </template>
@@ -24,18 +16,14 @@
 export default {
   data() {
     return {
-      likes: 0,
-      dislikes: 5,
+      posts: [
+        { id: 1, title: 'JS1', body: '123' },
+        { id: 2, title: 'JS2', body: '1234' },
+        { id: 3, title: 'JS3', body: '1235' },
+      ],
     };
   },
-  methods: {
-    addLike() {
-      this.likes += 1;
-    },
-    addDisLike() {
-      this.dislikes += 1;
-    },
-  },
+  methods: {},
 };
 </script>
 <style>
@@ -47,6 +35,12 @@ export default {
 .post {
   padding: 15px;
   border: 2px solid teal;
+  margin-top: 15px;
+}
+.input {
+  width: 100%;
+  border: 1px solid teal;
+  padding: 10px 15px;
   margin-top: 15px;
 }
 </style>
